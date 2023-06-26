@@ -1,6 +1,6 @@
-# chart-1
+# Lanchart-1
 
-Simple chart
+Landing chart
 
 # Arrancar portal
 
