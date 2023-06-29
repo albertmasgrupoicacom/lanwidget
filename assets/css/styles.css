@@ -1,21 +1,25 @@
 
   
   
-  .table,
-  .th,
-  .tr,
-  .td {
-    border: 1px solid;
-    width: 1%;
+  .tab-container {
+    border: 1px solid #ccc;
   }
   
-  .table {
-    width: 100%;
-    margin: 0 auto;
-    display: block;
-    overflow-x: auto;
-    border-spacing: 0;
-  } 
+  .tab-navigation {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .tab-navigation li {
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .tab-content {
+    padding: 10px;
+  }
 
   /* Style buttons */
   .graphic_btn {
