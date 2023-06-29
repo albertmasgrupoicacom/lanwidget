@@ -151,7 +151,7 @@ export class HomeChart {
   }
 
   addTab(tabContent,tab) {
-    const listItems = tab.preguntas.map((item,index) => `<li class="list-item">${item.titulo}</li>`).join("");
+    const listItems = tab.preguntas.map((item,index) => `<li class="list-item" data-index="${index}">${item.titulo}</li>`).join("");
     tabContent.innerHTML = `
                             <ul>${listItems}</ul>
                             <div class="canvas_graph"></div>`;
@@ -163,9 +163,12 @@ export class HomeChart {
           item.classList.remove("selected");
         });
         pregunta.classList.add("selected");
-        const position = tab.preguntas.find( x => x.titulo === pregunta.innerText);
+        // const position = tab.preguntas.find( x => x.titulo === pregunta.innerText);
+        const indice = pregunta.dataset.index;
+        const position = tab.preguntas[indice];
         console.log("Element seleccionat:", pregunta.innerText);
         console.log("ELemento a Pintar:", position);
+        console.log('Indice:',indice)
         //TODO: PrintChar
       });
     });
