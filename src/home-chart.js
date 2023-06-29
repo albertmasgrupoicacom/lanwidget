@@ -129,35 +129,46 @@ export class HomeChart {
     const tabNavigation = container.querySelector(".tab-navigation");
     const tabContent = container.querySelector(".tab-content");
     listaTabs.forEach( (tab, index) => {
-      // Crear element de pestanya a la navegació
       const tabNavItem = document.createElement("li");
       tabNavItem.textContent = tab.titulo;
   
-      // Afegir classe activa a la primera pestanya
       if (index === 0) {
         tabNavItem.classList.add("active");
-        tabContent.textContent = tab.preguntas.length;
+        // TODO: Add tab content ( list prefguntas & chart)
+        this.addTab(tabContent,tab);
       }
   
-      // Afegir esdeveniment de clic per canviar de pestanya
       tabNavItem.addEventListener("click", () => {
-        // Eliminar classe activa de totes les pestanyes
         const tabNavItems = document.querySelectorAll(".tab-navigation li");
         tabNavItems.forEach((item) => {
           item.classList.remove("active");
         });
-  
-        // Afegir classe activa a la pestanya seleccionada
         tabNavItem.classList.add("active");
-  
-        // Actualitzar el contingut de la pestanya
-        tabContent.textContent = tab.preguntas.length;
+        this.addTab(tabContent,tab);
       });
-  
-      // Afegir pestanya a la navegació
       tabNavigation.appendChild(tabNavItem);
     });
+  }
 
+  addTab(tabContent,tab) {
+    const listItems = tab.preguntas.map((item,index) => `<li class="list-item">${item.titulo}</li>`).join("");
+    tabContent.innerHTML = `
+                            <ul>${listItems}</ul>
+                            <div class="canvas_graph"></div>`;
+
+    const listElements = document.querySelectorAll(".list-item");
+    listElements.forEach((pregunta,index) => {
+      pregunta.addEventListener("click", (selectedElement,index) => {
+        listElements.forEach((item) => {
+          item.classList.remove("selected");
+        });
+        pregunta.classList.add("selected");
+        const position = tab.preguntas.find( x => x.titulo === pregunta.innerText);
+        console.log("Element seleccionat:", pregunta.innerText);
+        console.log("ELemento a Pintar:", position);
+        //TODO: PrintChar
+      });
+    });
   }
 
 }
