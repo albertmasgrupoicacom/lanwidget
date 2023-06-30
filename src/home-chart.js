@@ -1,5 +1,5 @@
 import Chart from 'chart.js/auto';
-import { resultButtons, colors } from './utils/utils';
+import { resultButtons, colors, chartsConfig, colorMatch } from './utils/utils';
 import { HttpClient } from './utils/http-client';
 import { base_url } from './environments/environment.prod';
 import { Helpers } from './utils/helpers';
@@ -95,48 +95,15 @@ export class HomeChart {
   }
 
   getParsedData(data) {
-    // datasets: [
-    //   {
-    //     data: [50, 40, 5, 5],
-    //     backgroundColor: ['#ED2B2A', '#533E85', '#9336B4', '#3EC70B'],
-    //     circumference: 180,
-    //     borderWidth: 1,
-    //     rotation: 270,
-    //     cutout: '50%'
-    //   },
-
-    // 0: {data: 33, backgroundColor: 'rojo', label: 'PSOE'}
-    // 1: {data: 18, backgroundColor: 'azul', label: 'PP'}
-    // 2: {data: 10, backgroundColor: 'morado', label: 'SUMAR'}
-    // 3: {data: 13, backgroundColor: 'verde', label: 'VOX'}
-
     console.log(data);
     const dataCopy = JSON.parse(JSON.stringify(data));
-    let result = {datasets: [], title: data.titulo, labels: [], type: null};
-
-    result.labels = dataCopy.categorias.map( x => x.titulo);
-    const dataDataset = [];
-    const backgroundDataset = [];
-    dataCopy.categorias.map( x =>  {
-      dataDataset.push(x.valor);
-      backgroundDataset.push(x.color);
+    let result = JSON.parse(JSON.stringify(chartsConfig.find(config => config.id == data.widget)));
+    dataCopy.categorias.forEach((cat, index) => {
+      result.datasets[0].data.push(cat.valor);
+      result.datasets[0].backgroundColor.push(cat.color ? cat.color : colors[index]);
+      result.labels.push(cat.titulo)
     });
-    
-    if( data.widget == '#donut180'){
-      result.type = 'doughnut';
-    }
-    else {
-      result.type = 'bar';
-    }
-
-    result.datasets.push ({
-      data: dataDataset,
-      backgroundColor: backgroundDataset,
-      circumference: 180,
-      borderWidth: 1,
-      rotation: 270,
-      cutout: '50%'
-    });
+    console.log(result);
     return result;
   }
 
@@ -146,7 +113,7 @@ export class HomeChart {
       type: data.type,
       data: data,
       options: {
-        indexAxis: 'x',
+        indexAxis: data.axis,
         plugins: {
           title: {
             display: true,

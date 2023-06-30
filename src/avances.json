@@ -36,7 +36,7 @@
                     },
                     {
                         "titulo": "Nacionalidad de la persona entrevistada",
-                        "widget": "",
+                        "widget": "#donut360",
                         "categorias": [
                             {
                                 "titulo": "PSOE",
