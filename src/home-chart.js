@@ -38,31 +38,15 @@ export class HomeChart {
     // GET FIRST DATA
     let listaTabs = data.lista;
     this.printTabs(listaTabs,container);
-    // this.printChart(tabData, 0);
-
-    // if(tableData.tipo_resultado == 'cruce1'){
-    //   this.printOperationsSelector(data, tableData, tableIndex);
-    // };
-    // if(tableData.tipo_resultado == 'cruce2'){
-    //   this.printOperationsSelector(data, tableData, tableIndex);
-    //   this.printTableSelector(data, tableData, tableIndex);
-    // };
-    // let parsedData = this.getParsedData(data, tableData);
-    // this.printTable(parsedData, tableIndex);
   }
 
-  printChart(data, tableIndex){
+  printChart(data, tableIndex,tabContent){
     let config = {type: data.widget, title: data.titulo};
-    // let totalColumnIndex = data.labels.findIndex(label => label == 'Total');
-    // if(totalColumnIndex >= 0) { 
-    //   data.labels.splice(totalColumnIndex, 1);
-    //   data.datasets.map(dataset => dataset.data.splice(totalColumnIndex, 1));
-    // }
-    const table = document.getElementById(`graph_table_${tableIndex}`);
+    const table = document.getElementById(`canvas_graph`);
     let canvas = document.createElement("canvas");
     canvas.id = `graph_chart_${tableIndex}`;
     canvas.classList.add('graph_chart')
-    table.insertAdjacentElement('beforeend', canvas);
+    tabContent.insertAdjacentElement('beforeend', canvas);
     new Chart(canvas, {
       type: config && config.type ? config.type : 'bar',
       data: data,
@@ -163,13 +147,13 @@ export class HomeChart {
           item.classList.remove("selected");
         });
         pregunta.classList.add("selected");
-        // const position = tab.preguntas.find( x => x.titulo === pregunta.innerText);
         const indice = pregunta.dataset.index;
-        const position = tab.preguntas[indice];
+        const data = tab.preguntas[indice];
         console.log("Element seleccionat:", pregunta.innerText);
-        console.log("ELemento a Pintar:", position);
+        console.log("ELemento a Pintar:", data);
         console.log('Indice:',indice)
         //TODO: PrintChar
+        this.printChart(data,0,tabContent);
       });
     });
   }
