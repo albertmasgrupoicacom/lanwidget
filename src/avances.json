@@ -10,25 +10,25 @@
                         "categorias": [
                             {
                                 "titulo": "PSOE",
-                                "color": "rojo",
+                                "color": "#c30011",
                                 "logo": "https:///xxxx/psoe.png",
                                 "valor": 33.0
                             },
                             {
                                 "titulo": "PP",
-                                "color": "azul",
+                                "color": "#22F044",
                                 "logo": "https:///xxxx/psoe.png",
                                 "valor": 18.0
                             },
                             {
                                 "titulo": "SUMAR",
-                                "color": "morado",
+                                "color": "#12FF00",
                                 "logo": "https:///xxxx/sumar.png",
                                 "valor": 10.0
                             },
                             {
                                 "titulo": "VOX",
-                                "color": "verde",
+                                "color": "#AA0011",
                                 "logo": "https:///xxxx/vox.png",
                                 "valor": 13.0
                             }
