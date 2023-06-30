@@ -95,8 +95,6 @@ export class HomeChart {
   }
 
   getParsedData(data) {
-    console.log(data);
-
     // datasets: [
     //   {
     //     data: [50, 40, 5, 5],
@@ -145,7 +143,7 @@ export class HomeChart {
   printChart(data){
     if(this.chart){this.chart.destroy()}
     this.chart = new Chart('tab-content-chart', {
-      type: 'bar',
+      type: data.type,
       data: data,
       options: {
         indexAxis: 'x',
