@@ -41,7 +41,7 @@ export class HomeChart {
   }
 
   printChart(data, tableIndex,tabContent){
-    let config = {type: data.widget, title: data.titulo};
+    let config = {type: data.type, title: data.title};
     const table = document.getElementById(`canvas_graph`);
     let canvas = document.createElement("canvas");
     canvas.id = `graph_chart_${tableIndex}`;
@@ -153,9 +153,56 @@ export class HomeChart {
         console.log("ELemento a Pintar:", data);
         console.log('Indice:',indice)
         //TODO: PrintChar
-        this.printChart(data,0,tabContent);
+        this.printChart(this.getParsedData(data),0,tabContent);
       });
     });
+  }
+
+  getParsedData(data) {
+
+    // datasets: [
+    //   {
+    //     data: [50, 40, 5, 5],
+    //     backgroundColor: ['#ED2B2A', '#533E85', '#9336B4', '#3EC70B'],
+    //     circumference: 180,
+    //     borderWidth: 1,
+    //     rotation: 270,
+    //     cutout: '50%'
+    //   },
+
+    // 0: {data: 33, backgroundColor: 'rojo', label: 'PSOE'}
+    // 1: {data: 18, backgroundColor: 'azul', label: 'PP'}
+    // 2: {data: 10, backgroundColor: 'morado', label: 'SUMAR'}
+    // 3: {data: 13, backgroundColor: 'verde', label: 'VOX'}
+
+    console.log(data);
+    const dataCopy = JSON.parse(JSON.stringify(data));
+    let result = {datasets: [], title: data.titulo, labels: [], type: null};
+
+    result.labels = dataCopy.categorias.map( x => x.titulo);
+    const dataDataset = [];
+    const backgroundDataset = [];
+    dataCopy.categorias.map( x =>  {
+      dataDataset.push(x.valor);
+      backgroundDataset.push(x.color);
+    });
+    
+    if( data.widget == '#donut180'){
+      result.type = 'doughnut';
+    }
+    else {
+      result.type = 'bar';
+    }
+
+    result.datasets.push ({
+      data: dataDataset,
+      backgroundColor: backgroundDataset,
+      circumference: 180,
+      borderWidth: 1,
+      rotation: 270,
+      cutout: '50%'
+    });
+    return result;
   }
 
 }
