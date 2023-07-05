@@ -1,5 +1,5 @@
 import { HomeChart } from './home-chart'
-import 'bootstrap';
+// import 'bootstrap';
 // import { DataService } from './services/data.service';
 
 export default function main({portletNamespace, contextPath, portletElementId,configuration}) {
@@ -14,6 +14,7 @@ export default function main({portletNamespace, contextPath, portletElementId,co
 
     let graphic;
     graphic = new HomeChart();
+    console.log('--------------   graphic.init() ---------- call');
     graphic.init();
     
 }

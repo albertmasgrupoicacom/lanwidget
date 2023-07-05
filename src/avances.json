@@ -84,7 +84,7 @@
                     },
                     {
                         "titulo": "Valoración prospectiva de la situación económica de España (1 año)",
-                        "widget": "#barrasV",
+                        "widget": "#barh",
                         "categorias": [
                             {
                                 "titulo": "PSOE",

@@ -1,16 +1,15 @@
 import Chart from 'chart.js/auto';
-import { resultButtons, colors, chartsConfig, colorMatch } from './utils/utils';
+import { colors, chartsConfig } from './utils/utils';
 import { HttpClient } from './utils/http-client';
 import { base_url } from './environments/environment.prod';
-import { Helpers } from './utils/helpers';
 import avances from './avances.json';
 
 export class HomeChart {
   
   constructor() {
+    console.log('contructor landing -------------------');
     // this._dataService = new DataService();
     this._http = new HttpClient();
-    this._helpers = new Helpers();
     // this._exportUtils = new ResultExport();
     this.data;
     this.chart;
@@ -18,9 +17,11 @@ export class HomeChart {
   
   init(){
     this.data = avances;
+    console.log('init landing -------------------');
     // this._http.get(`${base_url}/avances`).then(data => {
     //   this.data = data;
-    //   if(data && data.success) {this.printContainer(data)};
+    //   console.log('data landing -------------------',data);
+    //   if(data && data.success) {this.printTabs(this.data.lista)};
     // }).catch(error => {
     //   console.error('Error', error);
     // });
@@ -28,6 +29,7 @@ export class HomeChart {
   }
 
   printTabs(tabList) {
+    console.log('printTabs landing -------------------');
     const container = document.getElementById('graph_page');
     container.innerHTML = `
     <div class="fd-gris-fondo py-5">
@@ -107,7 +109,16 @@ export class HomeChart {
     return result;
   }
 
+  // labelf(context) {
+  //   console.log(context);
+  //   var labelIndex = context.dataIndex;
+  //   var labelValue = context.dataset.data[labelIndex];
+  //   var labelText = context.label;
+  //   return labelText + ': ' + labelValue;
+  // }
+
   printChart(data){
+    console.log(data)
     if(this.chart){this.chart.destroy()}
     this.chart = new Chart('tab-content-chart', {
       type: data.type,
@@ -126,6 +137,11 @@ export class HomeChart {
             display: this.show_legend,
             position: 'bottom',
           },
+          // tooltip: {
+          //   callbacks: {
+          //     label: this.labelf
+          //   }
+          // }
         },
         responsive: true
       },
